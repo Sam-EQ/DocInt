@@ -20,9 +20,6 @@ async def debug_pipeline(pdf: Path):
 
     print(f"📄 PDF: {pdf.name}")
 
-    # ------------------------------------------------------------------
-    # Stage 1: Marker extraction
-    # ------------------------------------------------------------------
     t0 = time.perf_counter()
 
     rendered = await asyncio.to_thread(_CONVERTER, str(pdf))
@@ -31,9 +28,6 @@ async def debug_pipeline(pdf: Path):
     t_marker = time.perf_counter() - t0
     print(f"⏱️ Marker extraction: {t_marker:.2f}s")
 
-    # ------------------------------------------------------------------
-    # Stage 2: Image extraction + captioning
-    # ------------------------------------------------------------------
     t0 = time.perf_counter()
 
     images = extract_images(rendered)
@@ -43,10 +37,6 @@ async def debug_pipeline(pdf: Path):
 
     t_images = time.perf_counter() - t0
     print(f"⏱️ Image captioning: {t_images:.2f}s")
-
-    # ------------------------------------------------------------------
-    # Stage 3: Injection + write
-    # ------------------------------------------------------------------
     t0 = time.perf_counter()
 
     final_md = inject_descriptions(md, images, descriptions)
@@ -57,9 +47,6 @@ async def debug_pipeline(pdf: Path):
     t_write = time.perf_counter() - t0
     print(f"⏱️ Injection + write: {t_write:.2f}s")
 
-    # ------------------------------------------------------------------
-    # Total
-    # ------------------------------------------------------------------
     total = time.perf_counter() - start_total
 
     print("\n✅ Done")
