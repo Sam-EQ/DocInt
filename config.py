@@ -8,6 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent
 TEMP_DIR = BASE_DIR / "tmp"
 TEMP_DIR.mkdir(parents=True, exist_ok=True)
 
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY:
     raise RuntimeError("OPENAI_API_KEY not set in .env")

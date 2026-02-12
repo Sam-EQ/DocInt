@@ -8,7 +8,6 @@ from core.raw_pipeline import extract_raw_markdown_with_images
 
 app = FastAPI(title="Universal Markdown Extractor")
 
-
 @app.post("/extract")
 async def extract(file: UploadFile = File(...)):
     req_id = uuid.uuid4().hex
